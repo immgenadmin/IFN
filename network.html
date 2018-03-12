@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<!-- <meta http-equiv="Cache-control" content="no-cache, no-store">
+	<meta http-Equiv="Pragma" Content="no-cache">
+	<meta http-Equiv="Expires" Content="-1"> -->
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	
+	<title>IFN Network</title>
+	
+	<script type="text/javascript" src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
+	<script type='text/javascript' src="http://code.jquery.com/ui/1.11.4/jquery-ui.min.js"> </script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="http://d3js.org/d3.v3.min.js"></script>
+	<script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
+	<!--  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.js" charset="utf-8"></script> 
+	
+	-->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">	
+	<link rel="stylesheet" type="text/css" href="network.css">
+	<link rel="stylesheet" href="http://code.jquery.com/ui/1.11.4/themes/ui-lightness/jquery-ui.min.css">
+	
+			
+</head>
+
+<body>
+	<div class="masterhead"> </div>
+	<hr>
+	<div id="tooltip" class="hidden">
+		<p><strong>Gene Symbol: </strong><span id="symbol"></span></p>
+        	<p><strong>Network Score: </strong><span id="score"></span></p>
+        	<p><strong>Regulatory Cluster: </strong><span id="cluster"></span></p>
+        </div>
+        <div id="tooltip_max" class="hidden">
+        	<p><strong>Network Score: </strong><span id="score_max"></span></p>
+        </div>
+	<div class="container-fluid" style="width:90%;">
+      
+		<div class="row">
+			
+			<div class="col-xs-6 col-md-4">
+				<br>
+				<label>View by:</label>
+				<ul class="nav nav-pills">
+  				<li class="active"><a data-toggle="pill" href="#regulator_tab">Regulator</a></li>
+  				<li><a data-toggle="pill" href="#target_tab">Target</a></li>
+				</ul>
+				<hr>
+				<div class="tab-content">
+  				
+				<div id="regulator_tab" class="tab-pane fade in active">
+  					
+    			 		<div class="form-group">
+    			 		<br>
+    			 		<label>Gene Symbol:</label>
+    			 		<select class="form-control" id="regulator_list" onchange="show_chart(1)">
+                        		<option>Select One ...</option>
+                        		<option>ACTR2</option>
+					<option>ADNP</option>
+					<option>AFF1</option>
+					<option>AIM2</option>
+					<option>ARID4A</option>
+					<option>ARID4B</option>
+					<option>ATF3</option>
+					<option>ATF6B</option>
+					<option>ATM</option>
+					<option>ATR</option>
+					<option>AXL</option>
+					<option>BAZ1A</option>
+					<option>BAZ2A</option>
+					<option>BAZ2B</option>
+					<option>BBX</option>
+					<option>BMPR2</option>
+					<option>BRD2</option>
+					<option>CAND1</option>
+					<option>CASP8AP2</option>
+					<option>CHD1</option>
+					<option>CREBBP</option>
+					<option>DMTF1</option>
+					<option>DNAJC1</option>
+					<option>ELF1</option>
+					<option>ETV6</option>
+					<option>GTF2A1</option>
+					<option>HCFC1</option>
+					<option>HIF1A</option>
+					<option>IRF1</option>
+					<option>IRF2</option>
+					<option>IRF7</option>
+					<option>IRF8</option>
+					<option>IRF9</option>
+					<option>JAK2</option>
+					<option>KAT2B</option>
+					<option>KDM5A</option>
+					<option>LATS1</option>
+					<option>LITAF</option>
+					<option>LPIN2</option>
+					<option>LYN</option>
+					<option>MAP3K5</option>
+					<option>MAP3K8</option>
+					<option>MAX</option>
+					<option>MED1</option>
+					<option>MED13</option>
+					<option>MGA</option>
+					<option>MIER1</option>
+					<option>MIER3</option>
+					<option>MLKL</option>
+					<option>MTF2</option>
+					<option>NCOA1</option>
+					<option>NCOR1</option>
+					<option>NEK7</option>
+					<option>NFKB1</option>
+					<option>NFKBIE</option>
+					<option>NMI</option>
+					<option>NR3C1</option>
+					<option>OPTN</option>
+					<option>PKN2</option>
+					<option>PML</option>
+					<option>PYHIN1</option>
+					<option>RB1</option>
+					<option>RFX5</option>
+					<option>RIPK1</option>
+					<option>RIPK2</option>
+					<option>RIPK3</option>
+					<option>RNASEL</option>
+					<option>RNF20</option>
+					<option>ROCK1</option>
+					<option>ROCK2</option>
+					<option>SETDB2</option>
+					<option>SKIL</option>
+					<option>SMAD3</option>
+					<option>SMARCA5</option>
+					<option>SMG1</option>
+					<option>SP100</option>
+					<option>SP110</option>
+					<option>SP140</option>
+					<option>STAT1</option>
+					<option>STAT2</option>
+					<option>STAT3</option>
+					<option>SUB1</option>
+					<option>TBK1</option>
+					<option>TCF4</option>
+					<option>TLK2</option>
+					<option>TMF1</option>
+					<option>UBE2L3</option>
+					<option>USF1</option>
+					<option>VRK2</option>
+					<option>ZBTB41</option>
+					<option>ZBTB6</option>
+					<option>ZEB2</option>
+                        		</select>
+                        		</div>
+                        		
+                        		
+                        		<br>
+                        		<hr>
+                        		<br>
+                        		<ul>
+                        			<li>The bars are color coded according to the regulatory cluster to which the target belongs (see Mostafavi et al, Parsing the interferon transcriptional network and its disease associations)</li>
+                        			<br>
+                        			<div id="legend" align="middle">
+                        			<label>Clusters:</label>
+                        			<h4><span class="label" style="background-color:#a6cee3;color:black;">1</span>
+                        			<span class="label" style="background-color:#b2df8a;color:black;">2</span>
+                        			<span class="label" style="background-color:#fb9a99;color:black;">3</span>
+                        			<span class="label" style="background-color:#fdbf6f;color:black;">4</span>
+                        			<span class="label" style="background-color:#cab2d6;color:black;">5</span></h4>
+                        			</div>
+                        			<br>
+                        			<li>The gray bar indicates, for reference, the maximum score reached elsewhere for this target</li>
+                        			<br>
+                        			<li>The green line marks the confidence threshold at <b>1%</b> FDR</li>
+                        			<br>
+                        			<li>For interactive navigation, clicking on a bar will shift the display to the regulators related to this target</li>
+                        		</ul>
+                        		<!-- <dl class="dl-horizontal">
+                        			<dt style="margin-bottom:4em;">A.</dt>
+                        			<dd>The bars are color coded according to the regulatory cluster to which the target/regulator belongs (see Mostafavi et al, Parsing the interferon transcriptional network and its disease associations)</dd>
+                        			<dt>B.</dt>
+                        			<dd>The gray bar indicates, for reference, the maximum score reached elsewhere for this target/regulator</dd>
+                        			<dt>C.</dt>
+                        			<dd>The green line marks the confidence threshold at <b>1%</b> FDR</dd>
+                        			<dt style="margin-bottom:2em;">D.</dt>
+                        			<dd>For interactive navigation, clicking on a bar will shift the display to the target/regulator related to this target/regulator</dd>
+                        		</dl> -->
+    					
+  					<br>
+  					<hr>
+  					<br>
+  					
+  					<div align="middle">
+  					<button type="button" class="btn btn-default" id="save_as_svg1" value="">Save as SVG</button>
+    					<button type="button" class="btn btn-default" id="save_as_pdf1" value="">Save as PDF</button>
+    					<button type="button" class="btn btn-default" id="print1" value="">Print</button>
+    					</div>
+  				</div>
+  
+  				<div id="target_tab" class="tab-pane fade">
+    					
+    					<div class="form-group">
+    					<br>
+    					<label>Gene Symbol:</label>
+    					<select class="form-control" id="target_list" onchange="show_chart(2)">
+    					<option>Select One ...</option>  
+    					<option>ABTB2</option>
+					<option>ADAR</option>
+					<option>AIDA</option>
+					<option>ANKFY1</option>
+					<option>ATP10A</option>
+					<option>BBX</option>      
+					<option>BST2</option>                       
+					<option>CASP4</option>
+					<option>CCNYL1</option>
+					<option>CCRL2</option>
+					<option>CD274</option>
+					<option>CD69</option>
+					<option>CD86</option>
+					<option>CLIC4</option>
+					<option>CMPK2</option>
+					<option>CNP</option>
+					<option>CXCL10</option>
+					<option>DCK</option>
+					<option>DDX58</option>
+					<option>DDX60</option>
+					<option>DHX58</option>
+					<option>DTX3L</option>
+					<option>EHD4</option>
+					<option>EIF2AK2</option>
+					<option>EPSTI1</option>
+					<option>FAM111A</option>
+					<option>FAM46A</option>
+					<option>GBP2</option>
+					<option>GBP3</option>
+					<option>GBP4</option>
+					<option>GBP5</option>
+					<option>GCH1</option>
+					<option>HK2</option>
+					<option>HSH2D</option>
+					<option>IFI35</option>
+					<option>IFI44</option>
+					<option>IFIH1</option>
+					<option>IFIT1</option>
+					<option>IFIT2</option>
+					<option>IFIT3</option>
+					<option>IFITM3</option>
+					<option>IL15RA</option>
+					<option>IL1RN</option>
+					<option>IRF7</option>
+					<option>IRF9</option>
+					<option>ISG15</option>
+					<option>ISG20</option>
+					<option>LGALS3BP</option>
+					<option>LGALS9</option>
+					<option>MAX</option>
+					<option>MOV10</option>
+					<option>NAMPT</option>
+					<option>NLRC5</option>
+					<option>NMI</option>
+					<option>NR4A3</option>
+					<option>OAS2</option>
+					<option>OAS3</option>
+					<option>OGFR</option>
+					<option>P2RY14</option>
+					<option>PARP11</option>
+					<option>PARP12</option>
+					<option>PARP14</option>
+					<option>PARP9</option>
+					<option>PCGF5</option>
+					<option>PHF11</option>
+					<option>PIK3AP1</option>
+					<option>PLSCR1</option>
+					<option>PML</option>
+					<option>PNPT1</option>
+					<option>PPA1</option>
+					<option>PPM1K</option>
+					<option>PSME2</option>
+					<option>PYHIN1</option>
+					<option>RBM43</option>
+					<option>RNF213</option>
+					<option>RSAD2</option>
+					<option>RTP4</option>
+					<option>SAMD9L</option>
+					<option>SELL</option>
+					<option>SLFN5</option>
+					<option>SMCHD1</option>
+					<option>SP110</option>
+					<option>STAT1</option>
+					<option>STAT2</option>
+					<option>TAP1</option>
+					<option>TDRD7</option>
+					<option>TIPARP</option>
+					<option>TLK2</option>
+					<option>TMEM140</option>
+					<option>TRAFD1</option>
+					<option>TRIM14</option>
+					<option>TRIM21</option>
+					<option>TRIM25</option>
+					<option>UBE2L6</option>
+					<option>USP18</option>
+					<option>USP25</option>
+					<option>VCPIP1</option>
+					<option>XAF1</option>
+					<option>XRN1</option>
+					<option>ZBP1</option>
+					<option>ZCCHC2</option>
+					<option>ZNFX1</option> 
+    					</select>
+    					</div>
+    					<br>
+                        		<hr>
+                        		<br>
+                        		<ul>
+                        			<li>The bars are color coded according to the regulatory cluster to which the regulator belongs (see Mostafavi et al, Parsing the interferon transcriptional network and its disease associations)</li>
+                        			<br>
+                        			<div id="legend" align="middle">
+                        			<label>Clusters:</label>
+                        			<h4><span class="label" style="background-color:#a6cee3;color:black;">1</span>
+                        			<span class="label" style="background-color:#b2df8a;color:black;">2</span>
+                        			<span class="label" style="background-color:#fb9a99;color:black;">3</span>
+                        			<span class="label" style="background-color:#fdbf6f;color:black;">4</span>
+                        			<span class="label" style="background-color:#cab2d6;color:black;">5</span></h4>
+                        			</div>
+                        			<br>
+                        			<li>The gray bar indicates, for reference, the maximum score reached elsewhere for this regulator</li>
+                        			<br>
+                        			<li>The green line marks the confidence threshold at <b>1%</b> FDR</li>
+                        			<br>
+                        			<li>For interactive navigation, clicking on a bar will shift the display to the targets related to this regulator</li>
+                        		</ul>
+  					<br>
+  					<hr>
+  					<br>
+  					
+  					<div align="middle">
+  					<button type="button" class="btn btn-default" id="save_as_svg2" value="">Save as SVG</button>
+    					<button type="button" class="btn btn-default" id="save_as_pdf2" value="">Save as PDF</button>
+    					<button type="button" class="btn btn-default" id="print2" value="">Print</button>
+    					</div>
+  				</div>
+  				
+  				</div>
+
+  			</div>
+
+			<div class="col-xs-12 col-md-8" id="chart">
+			
+			</div>
+        
+			
+		</div>
+
+
+	</div>
+	<hr>
+        <!-- Hidden <FORM> to submit the SVG data to the server, which will convert it to SVG/PDF/PNG downloadable file.
+        The form is populated and submitted by the JavaScript below. -->
+        <form id="svgform" method="post" action="../MyGeneSet/cgi-bin/download_IFN.cgi">
+        <input type="hidden" id="output_format" name="output_format" value="">
+        <input type="hidden" id="data" name="data" value="">
+        </form>
+        
+        
+	<script type="text/javascript">
+	
+		var margin = {top: 60, right: 50, bottom: 30, left: 100};
+		var width = document.getElementById("chart").offsetWidth - margin.left - margin.right;
+		//var height = window.innerHeight - margin.top - margin.bottom;
+		var height = 1020;
+		//var cluster_colors = ['#fbb4ae','#b3cde3','#ccebc5','#decbe4','#fed9a6'];
+		//var cluster_colors = ['#e41a1c','#377eb8','#4daf4a','#984ea3','#ff7f00'];
+		var cluster_colors = ['#a6cee3','#b2df8a','#fb9a99','#fdbf6f','#cab2d6'];
+		
+		var chart = d3.select("#chart").append("svg")
+					.attr("width", width + margin.left + margin.right)
+    					.attr("height", height + margin.top);
+    		var dataset;
+    		
+    		//var tip = d3.tip()
+    		//		.attr('class', 'd3-tip')
+    		//		.offset([-10, 0])
+    		//		.html(function(d) {
+    		//			return "<strong>Gene Symbol:</strong> <span style='color:red'>" + d.gene + "</span>" + "\n<strong>Network Score:</strong> <span style='color:red'>" + d.value + "</span>";
+    		//		})
+    		//
+    		//chart.call(tip);
+    		
+		function show_chart(sel) {
+		
+			var regulatorVal = document.getElementById('regulator_list').value;
+			var targetVal = document.getElementById('target_list').value;
+			
+			var gene_symbol;
+			var description1,description2;
+			
+			
+			if(sel==1) {
+				gene_symbol = regulatorVal; 
+				description1 = "Targets predicted to be regulated by " + gene_symbol;
+				description2 = "Network Score (AU)";
+			}else {
+				gene_symbol = targetVal;
+				description1 = "Predicted regulators for " + gene_symbol;
+				description2 = "Network Score (AU)";
+			}
+			
+			if(gene_symbol == 'Select One ...'){
+				chart.selectAll("*").remove();
+				return;
+			}
+			else{
+				chart.selectAll("*").remove();
+			}
+			//alert(gene_symbol);
+			
+			var jsonText = $.ajax({                                         
+				type: 'POST',      
+				url: 'get_data.php',               
+				data: {'type': sel,  'gene_symbol': gene_symbol},
+				async: false
+			}).responseText; 
+			//alert(jsonText);
+			dataset = JSON.parse(jsonText); 
+			
+			var yScale = d3.scale.ordinal()
+					.domain(dataset.map(function(d) { return d.gene; }))
+					.rangeRoundBands([0, height], .1);
+    				                                
+    			var xScale = d3.scale.linear()
+    					.domain([0, d3.max(dataset, function(d) { return d.value; })*1.05]) 
+    					.range([0, width]);
+                        
+			
+    					
+    			chart.append("text")
+    				.attr("x", width/2 + margin.left)             
+    				.attr("y", margin.top/5)
+    				.attr("text-anchor", "middle")
+    				.style("font-size", "15px")
+    				.style("font-weight", "bold")
+    				.style("font-family", "sans-serif")
+    				.text(description1);
+    				
+    			chart.append("text")
+    				.attr("x", width/2 + margin.left)             
+    				.attr("y", 2*margin.top/3)
+    				.attr("text-anchor", "middle")
+    				.style("font-size", "13px")
+    				.style("font-family", "sans-serif")
+    				.text(description2);	
+    				
+    			var xAxis = d3.svg.axis()
+    					.scale(xScale) 
+    					.orient("top");
+    					
+			var yAxis = d3.svg.axis()                         
+    					.scale(yScale)
+    					.orient("left");	
+    					
+    			var bar = chart.selectAll("g")
+    					.data(dataset)  
+    					.enter()
+    					.append("g")
+    					.attr("transform", function(d, i){
+    						return "translate(0, "+yScale(d.gene)+")";
+    					});
+    					
+    			bar.append("rect")
+    				.attr("y", function(d,i){
+    					if(sel == 1){
+    						return 2*yScale.rangeBand();
+    					}
+    					else{
+    						return  margin.top + yScale.rangeBand()/8;
+    					}
+    				})
+    				.attr("height", yScale.rangeBand())
+    				.attr("x", margin.left)
+    				.attr("width", 0)
+    				.style("fill", function(d) { 
+    						if(d.type == 'data') {
+    							//return "steelblue";
+    							return cluster_colors[d.cluster-1];
+    						}
+    						else if(d.type == 'max') {
+    							return "#BCC6CC";
+    						}
+    				})
+    				.on("mouseover", function(d) {
+    				
+    					var xPosition = d3.event.pageX+10;  
+    					var yPosition = d3.event.pageY+10;
+    					                                                                 
+    					if(d.type == 'max'){
+    						d3.select(this).style("fill", "#C48793");
+    						//Update the tooltip position and value
+  	             				d3.select("#tooltip_max")
+  	             				  .style("left", xPosition + "px")
+  	             				  .style("top", yPosition + "px")
+  	             				  .select("#score_max")
+  	             				  .text(d.value);
+  	             				  	             				  
+  	             				//Show the tooltip
+  	             				d3.select("#tooltip_max").classed("hidden", false);
+    					}
+    					else{
+    						d3.select(this).style("fill", "brown");
+    						d3.select(this).style("cursor", "hand");
+    						//Update the tooltip position and value
+  	             				d3.select("#tooltip")
+  	             				  .style("left", xPosition + "px")
+  	             				  .style("top",  yPosition + "px")
+  	             				  .select("#symbol")
+  	             				  .text(d.gene);      
+  	             				
+  	             				d3.select("#tooltip")
+  	             				  .style("left", xPosition + "px")
+  	             				  .style("top", yPosition + "px")
+  	             				  .select("#score")
+  	             				  .text(d.value);
+  	             				  
+  	             				d3.select("#tooltip")
+  	             				  .style("left", xPosition + "px")
+  	             				  .style("top", yPosition + "px")
+  	             				  .select("#cluster")
+  	             				  .text(d.cluster);
+  	             				  
+  	             				//Show the tooltip
+  	             				d3.select("#tooltip").classed("hidden", false);
+    					}
+    				})
+    				.on("mouseout", function(d) {
+    					if(d.type == 'max'){
+    						d3.select(this).style("fill", "#BCC6CC");
+    						d3.select("#tooltip_max").classed("hidden", true); 
+    					}
+    					else{
+    						d3.select(this).style("fill", function(d) { return cluster_colors[d.cluster-1]; });
+    						d3.select("#tooltip").classed("hidden", true);  
+    					}
+    				})
+    				.transition().delay(function (d,i){ return Math.floor(i/2) * 30;})
+    				.duration(500)
+    				.attr("x", function(d) { 
+    						if(d.type == 'data') {
+    							return margin.left;
+    						}
+    						else if(d.type == 'max') {
+    							return margin.left + xScale(d.start);
+    						}
+    					} )
+    				.attr("width", function(d) { 
+    					return xScale(d.value) - xScale(d.start); 
+    				});	
+    			
+    			//bar.append("title")
+    			//	.text(function(d) { 
+    			//		if(d.type == 'data'){
+    			//			return "Gene Symbol: " + d.gene + "       Score: " + d.value;
+    			//		}
+    			//		else{
+    			//			return "Score: " + d.value;
+    			//		}
+    			//	});    		
+    			                                                                           
+    			
+    			bar.on("click", function(d) {
+    				if(d.type == 'data') {
+    					if(sel == 1) {
+    						$('.nav-pills a[href="#target_tab"]').tab('show');
+    						document.getElementById('target_list').value = d.gene;
+    						show_chart(2);
+    					}
+    					else if(sel == 2) {
+    						$('.nav-pills a[href="#regulator_tab"]').tab('show');
+    						document.getElementById('regulator_list').value = d.gene;
+    						show_chart(1);
+    					}
+    				}
+    			});
+    			
+    			var x_axis = chart.append("g")
+    					.attr("class", "x axis")
+    					.attr("transform", "translate(" + margin.left + "," + margin.top + ")")  
+    					//.style("font-family", "sans-serif")
+    					//.style("font-size", "10px")
+    					//.style("stroke-width", 1)
+    					.call(xAxis);
+    			
+    			var y_axis = chart.append("g")
+    					.attr("class", "y axis")
+    					.attr("transform", function(d,i){
+    						if(sel == 1){
+    							return "translate(" + margin.left + "," +  2*yScale.rangeBand() + ")";
+    						}
+    						else{
+    							return  "translate(" + margin.left + "," + margin.top + ")";
+    						}
+    					})
+    					//"translate(" + margin.left + "," +  2*yScale.rangeBand() + ")")
+    					//.style("font-family", "sans-serif")
+    					//.style("font-size", "10px")
+    					//.style({'fill': 'none', 'stroke-width': '1px'})
+    					.call(yAxis);
+    					
+    			bar.append("line")
+    				.attr("transform", function(d,i){
+    						if(sel == 1){
+    							return "translate(" + margin.left + "," +  2*yScale.rangeBand() + ")";
+    						}
+    						else{
+    							return  "translate(" + margin.left + "," + margin.top + ")";
+    						}
+    				})
+    				//.attr("transform", "translate(" + margin.left + "," +  2*yScale.rangeBand() + ")")
+    				.attr("x1", xScale(0.75))
+    				.attr("y1", yScale(0))
+    				.attr("x2", xScale(0.75))
+    				.attr("y2", yScale.rangeBand())
+    				.attr("stroke", "#4E9258")
+    				.attr("stroke-width", 2)
+    				.append("title")
+    				.text(0.75);                                                                                                                      
+    				
+    			//bar.append("line")
+    			//	.attr("transform", "translate(" + margin.left + "," + margin.top + ")")
+    			//	.attr("x1", xScale(0.75))
+    			//	.attr("y1", yScale(0))
+    			//	.attr("x2", xScale(0.75))
+    			//	.attr("y2", yScale.rangeBand())
+    			//	.attr("stroke", "#F88158")
+    			//	.attr("stroke-width", 2)
+    			//	.append("title")
+    			//	.text(0.75);
+    			
+    			//d3.selectAll('.y .tick')
+    			//	.data(dataset)
+    			//	.on('mouseover', tip.show)         
+    			//	.on('mouseout', tip.hide);
+    			d3.selectAll('.axis').style({ 'font-size': '10px', 'font-family':'sans-serif'});
+ 			d3.selectAll('.axis line, .axis path').style({ 'stroke-width': '1px', 'fill':'none', 'stroke': '#000', 'shape-rendering': 'crispEdges'});
+ 			d3.selectAll('.y.axis path').style({'display':'none'});
+      		}
+
+      		
+      		function submit_download_form(output_format)
+      		{
+			// Get the d3js SVG element
+			var tmp = document.getElementById("chart");
+			var svg = tmp.getElementsByTagName("svg")[0];
+			// Extract the data as SVG text string
+			var svg_xml = (new XMLSerializer).serializeToString(svg);
+                	
+			// Submit the <FORM> to the server.
+			// The result will be an attachment file to download.
+			var form = document.getElementById("svgform");
+			form['output_format'].value = output_format;
+			form['data'].value = svg_xml ;
+			form.submit();
+		}
+		
+		
+		function print_div(sel) {
+			var printContents = document.getElementById("chart").innerHTML;
+			var gene_regulator = document.getElementById('regulator_list').value;
+			var gene_target = document.getElementById('target_list').value;
+			var originalContents = document.body.innerHTML;
+			
+			document.body.innerHTML = printContents;
+			window.location.reload();
+			window.print();
+			
+			//document.body.innerHTML = originalContents;
+			//document.location = "http://rstats.immgen.org/IFN/network.html";
+			//history.go(0);
+			//window.location.href = "http://rstats.immgen.org/IFN/network.html";
+			//window.location = window.location.href+'?eraseCache=true';
+			
+			
+		}
+		
+		
+		$(document).ready(function() {
+			$("#save_as_svg1").click(function() { submit_download_form("svg"); });
+			$("#save_as_pdf1").click(function() { submit_download_form("pdf"); });
+			$("#print1").click(function() { print_div(1); });
+			//$("#save_as_png1").click(function() { submit_download_form("png"); });
+			$("#save_as_svg2").click(function() { submit_download_form("svg"); });
+			$("#save_as_pdf2").click(function() { submit_download_form("pdf"); });
+			$("#print2").click(function() { print_div(2); });
+			//$("#save_as_png2").click(function() { submit_download_form("png"); });
+		});		
+	
+	</script>
+  
+</body>
+</html>
