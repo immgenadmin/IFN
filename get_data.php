@@ -5,10 +5,10 @@
 	$gene_symbol = $_POST['gene_symbol'];
 
 	
-	$host = 'mysql.cl.med.harvard.edu';
-	$user = 'rsimmgenweb';
-	$pass = 'OilnemRaGrighViukap3';
-	$db = 'rstatsimmgen';
+	$host = 'XXXXXX';
+	$user = 'XXXXXX';
+	$pass = 'XXXXXX';
+	$db = 'XXXXXX';
 	$table = 'IFN_Network';
 	$table1 = 'IFN_Network_Maximum';
 	
